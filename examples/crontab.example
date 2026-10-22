@@ -1,0 +1,3 @@
+# Heartbeat only on success: && not ;
+PING=https://example.invalid/ping/ID
+0 3 * * * /usr/local/bin/backup.sh && curl -fsS -m 10 --retry 3 "$PING" >/dev/null

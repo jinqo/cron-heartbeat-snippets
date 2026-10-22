@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nightly-job
+spec:
+  schedule: "0 3 * * *"
+  timeZone: "Europe/Amsterdam"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: job
+            image: curlimages/curl:8.10.1
+            command: ["/bin/sh", "-c"]
+            args: ["/app/run.sh && curl -fsS -m 10 --retry 3 -o /dev/null https://example.invalid/ping/ID"]

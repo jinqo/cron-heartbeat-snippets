@@ -1,0 +1,8 @@
+[Unit]
+Description=Nightly backup
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/backup.sh
+# Runs only if ExecStart exited 0
+ExecStartPost=/usr/bin/curl -fsS -m 10 --retry 3 -o /dev/null https://example.invalid/ping/ID
